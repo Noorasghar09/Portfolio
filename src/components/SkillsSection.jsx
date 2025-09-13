@@ -2,83 +2,91 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 const skills = [
-  // Frontend
-  { name: "HTML/CSS", level: 95, category: "frontend" },
-  { name: "JavaScript", level: 90, category: "frontend" },
-  { name: "React", level: 90, category: "frontend" },
-  { name: "TypeScript", level: 85, category: "frontend" },
-  { name: "Tailwind CSS", level: 90, category: "frontend" },
-  { name: "Next.js", level: 80, category: "frontend" },
-
-  // Backend
-  { name: "Node.js", level: 80, category: "backend" },
-  { name: "Express", level: 75, category: "backend" },
-  { name: "MongoDB", level: 70, category: "backend" },
-  { name: "PostgreSQL", level: 65, category: "backend" },
-  { name: "GraphQL", level: 60, category: "backend" },
-
-  // Tools
-  { name: "Git/GitHub", level: 90, category: "tools" },
-  { name: "Docker", level: 70, category: "tools" },
-  { name: "Figma", level: 85, category: "tools" },
-  { name: "VS Code", level: 95, category: "tools" },
+  { name: "Python", level: 85 },
+  { name: "React", level: 80 },
+  { name: "JavaScript", level: 85 },
+  { name: "PHP", level: 75 },
+  { name: "C++", level: 70 },
+  { name: "C#", level: 70 },
+  { name: "HTML/CSS", level: 90 },
+  { name: "MySQL", level: 75 },
+  { name: "TensorFlow", level: 65 },
+  { name: "Scikit-learn", level: 70 },
 ];
 
-const categories = ["all", "frontend", "backend", "tools"];
+const profSkills = [
+  { name: "Problem Solving", level: 85 },
+  { name: "Communication", level: 80 },
+  { name: "Teamwork", level: 85 },
+  { name: "Creativity", level: 90 },
+];
 
 export const SkillsSection = () => {
-  const [activeCategory, setActiveCategory] = useState("all");
-
-  const filteredSkills = skills.filter(
-    (skill) => activeCategory === "all" || skill.category === activeCategory
-  );
   return (
-    <section id="skills" className="py-24 px-4 relative bg-secondary/30">
+    <section id="skills" className="py-24 px-4 relative bg-dark text-light">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-          My <span className="text-primary"> Skills</span>
+          My <span className="text-accent">Skills</span>
         </h2>
-
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category, key) => (
-            <button
-              key={key}
-              onClick={() => setActiveCategory(category)}
-              className={cn(
-                "px-5 py-2 rounded-full transition-colors duration-300 capitalize",
-                activeCategory === category
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary/70 text-forefround hover:bd-secondary"
-              )}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredSkills.map((skill, key) => (
-            <div
-              key={key}
-              className="bg-card p-6 rounded-lg shadow-xs card-hover"
-            >
-              <div className="text-left mb-4">
-                <h3 className="font-semibold text-lg"> {skill.name}</h3>
-              </div>
-              <div className="w-full bg-secondary/50 h-2 rounded-full overflow-hidden">
-                <div
-                  className="bg-primary h-2 rounded-full origin-left animate-[grow_1.5s_ease-out]"
-                  style={{ width: skill.level + "%" }}
-                />
-              </div>
-
-              <div className="text-right mt-1">
-                <span className="text-sm text-muted-foreground">
-                  {skill.level}%
-                </span>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          {/* Technical Skills */}
+          <div>
+            <h3 className="text-xl font-semibold mb-6 text-accent">Technical Skills</h3>
+            <div className="space-y-6">
+              {skills.map((skill, key) => (
+                <div key={key}>
+                  <div className="flex justify-between mb-1">
+                    <span className="text-light font-medium">{skill.name}</span>
+                    <span className="text-grayText font-medium">{skill.level}%</span>
+                  </div>
+                  <div className="w-full bg-[#112240] h-2 rounded-full overflow-hidden">
+                    <div
+                      className="bg-accent h-2 rounded-full neon-glow transition-all duration-700"
+                      style={{ width: skill.level + "%" }}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+          {/* Professional Skills */}
+          <div>
+            <h3 className="text-xl font-semibold mb-6 text-accent">Professional Skills</h3>
+            <div className="grid grid-cols-2 gap-8">
+              {profSkills.map((skill, key) => (
+                <div key={key} className="flex flex-col items-center">
+                  <div className="relative mb-2">
+                    <svg width="70" height="70">
+                      <circle
+                        cx="35"
+                        cy="35"
+                        r="30"
+                        stroke="#233554"
+                        strokeWidth="6"
+                        fill="none"
+                      />
+                      <circle
+                        cx="35"
+                        cy="35"
+                        r="30"
+                        stroke="#00f0ff"
+                        strokeWidth="6"
+                        fill="none"
+                        strokeDasharray={2 * Math.PI * 30}
+                        strokeDashoffset={2 * Math.PI * 30 * (1 - skill.level / 100)}
+                        className="neon-glow"
+                        style={{ transition: 'stroke-dashoffset 0.7s' }}
+                      />
+                    </svg>
+                    <span className="absolute inset-0 flex items-center justify-center text-accent font-bold text-lg">
+                      {skill.level}%
+                    </span>
+                  </div>
+                  <span className="text-light font-medium text-center">{skill.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

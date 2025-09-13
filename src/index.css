@@ -98,6 +98,8 @@
   body {
     @apply bg-background text-foreground transition-colors duration-300;
     font-feature-settings: "rlig" 1, "calt" 1;
+    background: #0a192f;
+    color: #f8fafc;
   }
 }
 
@@ -152,6 +154,47 @@
 @utility meteor {
   @apply absolute bg-linear-to-r from-white via-white to-transparent rounded-full;
   box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+}
+
+.text-accent {
+  color: #00f0ff;
+}
+
+.bg-accent {
+  background-color: #00f0ff;
+}
+
+.text-glow {
+  text-shadow: 0 0 10px #00f0ff, 0 0 20px #a259ff;
+}
+
+.neon-glow {
+  box-shadow: 0 0 20px #00f0ff, 0 0 40px #a259ff;
+}
+
+.button-neon {
+  background: linear-gradient(90deg, #00f0ff 0%, #a259ff 100%);
+  color: #fff;
+  border-radius: 9999px;
+  box-shadow: 0 0 20px #00f0ff, 0 0 40px #a259ff;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.button-neon:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px #00f0ff, 0 0 60px #a259ff;
+}
+
+.input-dark {
+  background: #112240;
+  color: #f8fafc;
+  border: 1px solid #233554;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+}
+.input-dark:focus {
+  border-color: #00f0ff;
+  outline: none;
+  box-shadow: 0 0 0 2px #00f0ff44;
 }
 
 #root {
