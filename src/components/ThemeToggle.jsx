@@ -1,47 +1,56 @@
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
 
-export const ThemeToggle = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+const THEME_KEY = "theme";
+
+function applyTheme(theme) {
+  const root = document.documentElement;
+  if (theme === "dark") root.classList.add("dark");
+  else root.classList.remove("dark");
+}
+
+const ThemeToggle = () => {
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme === "dark") {
-      setIsDarkMode(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      localStorage.setItem("theme", "light");
-      setIsDarkMode(false);
-    }
+    const saved = localStorage.getItem(THEME_KEY);
+    const prefersDark =
+      window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ?? false;
+
+    const initial =
+      saved === "dark" || saved === "light"
+        ? saved
+        : prefersDark
+          ? "dark"
+          : "light";
+    setTheme(initial);
+    applyTheme(initial);
+    localStorage.setItem(THEME_KEY, initial);
   }, []);
 
   const toggleTheme = () => {
-    if (isDarkMode) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      setIsDarkMode(false);
-    } else {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-      setIsDarkMode(true);
-    }
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    applyTheme(next);
+    localStorage.setItem(THEME_KEY, next);
   };
+
+  const isDark = theme === "dark";
 
   return (
     <button
       onClick={toggleTheme}
-      className={cn(
-        "p-2 rounded-full transition-colors duration-300",
-        "focus:outlin-hidden"
-      )}
-      aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+      className="h-9 w-9 rounded-xl border border-border bg-card text-foreground hover:bg-muted transition-all duration-200 inline-flex items-center justify-center"
+      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+      title={isDark ? "Light theme" : "Dark theme"}
     >
-      {isDarkMode ? (
-        <Sun className="h-6 w-6 text-yellow-300" />
+      {isDark ? (
+        <Sun className="h-4 w-4 text-amber-400" />
       ) : (
-        <Moon className="h-6 w-6 text-blue-900" />
+        <Moon className="h-4 w-4" />
       )}
     </button>
   );
 };
+
+export default ThemeToggle;

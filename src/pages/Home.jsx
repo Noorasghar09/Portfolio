@@ -1,31 +1,37 @@
+import { useEffect } from "react";
 import { Navbar } from "../components/Navbar";
 import { StarBackground } from "@/components/StarBackground";
 import { HeroSection } from "../components/HeroSection";
 import { AboutSection } from "../components/AboutSection";
 import { SkillsSection } from "../components/SkillsSection";
 import { ProjectsSection } from "../components/ProjectsSection";
+import { ExperienceSection } from "../components/ExperienceSection";
 import { ContactSection } from "../components/ContactSection";
 import { Footer } from "../components/Footer";
+import { ChatWidget } from "@/components/ChatWidget";
 
 export const Home = () => {
-  return (
-    <div className="min-h-screen bg-dark text-light overflow-x-hidden">
-      {/* Background Effects */}
-      <StarBackground />
+  useEffect(() => {
+    // Dismiss the HTML preloader once the app is mounted and painted
+    requestAnimationFrame(() => {
+      window.__hidePreloader?.();
+    });
+  }, []);
 
-      {/* Navbar */}
+  return (
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden no-scrollbar">
+      <StarBackground />
       <Navbar />
-      {/* Main Content */}
-      <main>
+      <main id="main-content">
         <HeroSection />
         <AboutSection />
         <SkillsSection />
         <ProjectsSection />
+        <ExperienceSection />
         <ContactSection />
       </main>
-
-      {/* Footer */}
       <Footer />
+      <ChatWidget />
     </div>
   );
 };

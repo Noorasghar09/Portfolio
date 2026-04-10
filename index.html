@@ -2,11 +2,298 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+
+    <!-- Primary Meta -->
+    <title>Noor Asghar — Software Engineer &amp; AI Enthusiast</title>
+    <meta name="description" content="Portfolio of Noor Asghar — Software Engineer specializing in web development, AI/ML, and full-stack applications. Based in Lahore, Pakistan." />
+    <meta name="keywords" content="Noor Asghar, Software Engineer, Web Developer, AI, Machine Learning, React, Python, Portfolio" />
+    <meta name="author" content="Noor Asghar" />
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Noor Asghar — Software Engineer & AI Enthusiast" />
+    <meta property="og:description" content="Software Engineer specializing in web development, AI/ML, and full-stack applications." />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Noor Asghar — Software Engineer & AI Enthusiast" />
+    <meta name="twitter:description" content="Software Engineer specializing in web development, AI/ML, and full-stack applications." />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Fonts: Inter + Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+
+    <style>
+      /* ── Preloader ── */
+      #preloader {
+        position: fixed; inset: 0; z-index: 9999;
+        display: flex; align-items: center; justify-content: center;
+        background: #f2f4f7;
+        overflow: hidden;
+        transition: opacity 0.6s cubic-bezier(0.65,0,0.35,1),
+                    transform 0.6s cubic-bezier(0.65,0,0.35,1),
+                    filter 0.6s ease;
+      }
+      #preloader.hide {
+        opacity: 0;
+        transform: scale(1.04);
+        filter: blur(8px);
+        pointer-events: none;
+      }
+
+      /* Dark mode */
+      @media (prefers-color-scheme: dark) {
+        #preloader { background: #0d1117; }
+        .pl-grid { opacity: 0.04 !important; }
+        .pl-tagline { color: #6b7280 !important; }
+        .pl-counter { color: #6b7280 !important; }
+      }
+      .dark #preloader { background: #0d1117; }
+      .dark .pl-grid { opacity: 0.04 !important; }
+      .dark .pl-tagline { color: #6b7280 !important; }
+      .dark .pl-counter { color: #6b7280 !important; }
+
+      /* Grid background */
+      .pl-grid {
+        position: absolute; inset: 0; opacity: 0.025;
+        background-image: radial-gradient(circle, #1a1f2e 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+
+      /* Floating orbs */
+      .pl-orb {
+        position: absolute; border-radius: 50%;
+        filter: blur(80px); pointer-events: none;
+      }
+      .pl-orb-1 {
+        width: 380px; height: 380px; top: -100px; right: -80px;
+        background: rgba(108, 99, 255, 0.13);
+        animation: pl-orb-drift 4s ease-in-out infinite alternate;
+      }
+      .pl-orb-2 {
+        width: 320px; height: 320px; bottom: -80px; left: -60px;
+        background: rgba(168, 85, 247, 0.1);
+        animation: pl-orb-drift 4s ease-in-out 1s infinite alternate-reverse;
+      }
+      @keyframes pl-orb-drift {
+        from { transform: translate(0,0); }
+        to   { transform: translate(20px,-20px); }
+      }
+
+      /* Center wrapper */
+      .pl-center {
+        position: relative; z-index: 1;
+        display: flex; flex-direction: column; align-items: center; gap: 18px;
+        animation: pl-center-in 0.5s cubic-bezier(0.16,1,0.3,1) both;
+      }
+      @keyframes pl-center-in {
+        from { opacity: 0; transform: translateY(16px) scale(0.96); }
+        to   { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
+      /* Logo with ring */
+      .pl-logo-wrap {
+        position: relative; width: 140px; height: 140px;
+      }
+      .pl-logo {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: 64px; height: 64px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, #6c63ff, #a855f7);
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 8px 30px rgba(108, 99, 255, 0.35);
+        animation: pl-logo-pulse 2s ease-in-out infinite;
+      }
+      @keyframes pl-logo-pulse {
+        0%,100% { transform: translate(-50%,-50%) scale(1); box-shadow: 0 8px 30px rgba(108,99,255,0.35); }
+        50%     { transform: translate(-50%,-50%) scale(1.05); box-shadow: 0 14px 44px rgba(108,99,255,0.45); }
+      }
+      .pl-logo span {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 30px; font-weight: 700; color: #fff; line-height: 1;
+      }
+      .pl-ring {
+        position: absolute; inset: 0; width: 100%; height: 100%;
+        animation: pl-ring-spin 4s linear infinite;
+      }
+      @keyframes pl-ring-spin {
+        from { transform: rotate(0deg); }
+        to   { transform: rotate(360deg); }
+      }
+      .pl-ring circle.track { opacity: 0.06; }
+      .pl-ring circle.fill {
+        stroke-dasharray: 0 377;
+        animation: pl-ring-draw 2.2s cubic-bezier(0.4,0,0.2,1) 0.3s forwards;
+      }
+      @keyframes pl-ring-draw {
+        to { stroke-dasharray: 200 377; }
+      }
+
+      /* Name — staggered letter reveal */
+      .pl-name {
+        display: flex;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 26px; font-weight: 700; font-style: italic;
+        letter-spacing: -0.02em;
+      }
+      .pl-name span {
+        opacity: 0; transform: translateY(10px);
+        animation: pl-char-in 0.35s cubic-bezier(0.16,1,0.3,1) forwards;
+        background: linear-gradient(135deg, #6c63ff, #a855f7);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      @keyframes pl-char-in {
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Tagline */
+      .pl-tagline {
+        font-family: "Inter", sans-serif;
+        font-size: 12px; font-weight: 500; color: #8b919d;
+        letter-spacing: 0.04em;
+        opacity: 0; animation: pl-fade 0.4s ease 0.9s forwards;
+      }
+      @keyframes pl-fade {
+        to { opacity: 1; }
+      }
+
+      /* Progress bar */
+      .pl-bar-track {
+        width: 160px; height: 3px; border-radius: 2px;
+        background: #e2e5ea;
+        overflow: hidden;
+        opacity: 0; animation: pl-fade 0.4s ease 0.5s forwards;
+      }
+      .dark .pl-bar-track,
+      .pl-bar-track:is([data-dark]) { background: #1e2330; }
+      @media (prefers-color-scheme: dark) {
+        .pl-bar-track { background: #1e2330; }
+      }
+
+      .pl-bar-fill {
+        height: 100%; border-radius: 2px;
+        background: linear-gradient(90deg, #6c63ff, #a855f7);
+        transform-origin: left center;
+        animation: pl-bar-go 2s cubic-bezier(0.4,0,0.2,1) 0.5s forwards;
+        transform: scaleX(0);
+      }
+      @keyframes pl-bar-go {
+        to { transform: scaleX(1); }
+      }
+
+      /* Shimmer on the bar */
+      .pl-bar-fill::after {
+        content: ""; position: absolute; top: 0; bottom: 0; width: 40%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+        animation: pl-shimmer 1.2s ease infinite;
+      }
+      @keyframes pl-shimmer {
+        from { left: -40%; }
+        to   { left: 100%; }
+      }
+
+      /* Counter */
+      .pl-counter {
+        font-family: "Inter", sans-serif;
+        font-size: 11px; font-weight: 600; color: #8b919d;
+        font-variant-numeric: tabular-nums;
+        opacity: 0; animation: pl-fade 0.4s ease 0.6s forwards;
+      }
+    </style>
   </head>
   <body>
+    <!-- ── Preloader ── -->
+    <div id="preloader" aria-label="Loading">
+      <div class="pl-grid"></div>
+      <div class="pl-orb pl-orb-1"></div>
+      <div class="pl-orb pl-orb-2"></div>
+
+      <div class="pl-center">
+        <!-- Logo + ring -->
+        <div class="pl-logo-wrap">
+          <div class="pl-logo"><span>N</span></div>
+          <svg class="pl-ring" viewBox="0 0 140 140">
+            <circle class="track" cx="70" cy="70" r="60" fill="none" stroke="#6c63ff" stroke-width="1.5"/>
+            <circle class="fill" cx="70" cy="70" r="60" fill="none" stroke="url(#plGrad)" stroke-width="2.5" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="plGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#6c63ff"/>
+                <stop offset="100%" stop-color="#a855f7"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <!-- Name -->
+        <div class="pl-name">
+          <span style="animation-delay:.28s">N</span>
+          <span style="animation-delay:.32s">o</span>
+          <span style="animation-delay:.36s">o</span>
+          <span style="animation-delay:.40s">r</span>
+          <span style="animation-delay:.44s">&nbsp;</span>
+          <span style="animation-delay:.48s">A</span>
+          <span style="animation-delay:.52s">s</span>
+          <span style="animation-delay:.56s">g</span>
+          <span style="animation-delay:.60s">h</span>
+          <span style="animation-delay:.64s">a</span>
+          <span style="animation-delay:.68s">r</span>
+        </div>
+
+        <!-- Tagline -->
+        <p class="pl-tagline">Software Engineer &amp; AI Enthusiast</p>
+
+        <!-- Progress bar -->
+        <div class="pl-bar-track">
+          <div class="pl-bar-fill"></div>
+        </div>
+
+        <!-- Counter driven by JS -->
+        <span class="pl-counter" id="pl-counter">0%</span>
+      </div>
+    </div>
+
+    <script>
+      // Animate the counter to match the CSS bar (2s duration, 0.5s delay)
+      (function() {
+        var el = document.getElementById("pl-counter");
+        var start = null, delay = 500, duration = 2000;
+        function tick(ts) {
+          if (!start) start = ts;
+          var elapsed = ts - start - delay;
+          if (elapsed < 0) { requestAnimationFrame(tick); return; }
+          var t = Math.min(elapsed / duration, 1);
+          var eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = Math.round(eased * 100) + "%";
+          if (t < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+
+        // Hide preloader once React app mounts
+        window.__hidePreloader = function() {
+          var p = document.getElementById("preloader");
+          if (p) {
+            p.classList.add("hide");
+            setTimeout(function() { p.remove(); }, 700);
+          }
+        };
+      })();
+    </script>
+
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg">
+      Skip to main content
+    </a>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

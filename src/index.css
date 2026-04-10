@@ -1,90 +1,128 @@
 @import "tailwindcss";
 
+/* ===================================================================
+   DESIGN SYSTEM — Noor Asghar Portfolio
+   Richer palette · Deeper shadows · Polished components
+   =================================================================== */
+
 @theme {
   --color-border: hsl(var(--border));
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
-
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
-
+  --color-accent: hsl(var(--accent));
+  --color-accent2: hsl(var(--accent2));
   --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-surface: hsl(var(--surface));
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
 
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
-  --animate-fade-in: fade-in 0.7s ease-out forwards;
-  --animate-fade-in-delay-1: fade-in 0.7s ease-out 0.2s forwards;
-  --animate-fade-in-delay-2: fade-in 0.7s ease-out 0.4s forwards;
-  --animate-fade-in-delay-3: fade-in 0.7s ease-out 0.6s forwards;
-  --animate-fade-in-delay-4: fade-in 0.7s ease-out 0.8s forwards;
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
+  --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
+  --animate-fade-in-delay-1: fade-in-up 0.6s ease-out 0.1s forwards;
+  --animate-fade-in-delay-2: fade-in-up 0.6s ease-out 0.2s forwards;
+  --animate-fade-in-delay-3: fade-in-up 0.6s ease-out 0.3s forwards;
+  --animate-fade-in-delay-4: fade-in-up 0.6s ease-out 0.4s forwards;
   --animate-meteor: meteor 5s linear infinite;
+  --animate-slide-up: slide-up 0.5s ease-out forwards;
+  --animate-scale-in: scale-in 0.4s ease-out forwards;
+  --animate-gradient: gradient-shift 8s ease infinite;
+  --animate-shimmer: shimmer 2s linear infinite;
 
   @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
   }
   @keyframes pulse-subtle {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
   }
   @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
   }
   @keyframes meteor {
-    0% {
-      transform: rotate(215deg) translateX(0);
-      opacity: 1;
-    }
-    70% {
-      opacity: 1;
-    }
-    100% {
-      transform: rotate(215deg) translateX(-500px);
-      opacity: 0;
-    }
+    0% { transform: rotate(215deg) translateX(0); opacity: 1; }
+    70% { opacity: 1; }
+    100% { transform: rotate(215deg) translateX(-500px); opacity: 0; }
+  }
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 }
 
+/* ===================================================================
+   COLOR PALETTE
+   =================================================================== */
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
-
+    --background: 225 25% 96%;
+    --foreground: 226 32% 12%;
     --card: 0 0% 100%;
+    --card-foreground: 226 32% 12%;
+    --primary: 252 63% 55%;
+    --primary-foreground: 0 0% 100%;
+    --accent: 252 63% 55%;
+    --accent2: 290 65% 52%;
+    --muted: 225 18% 90%;
+    --muted-foreground: 225 12% 44%;
+    --surface: 225 20% 93%;
+    --border: 225 16% 86%;
 
-    --primary: 250 47% 60%;
-    --primary-foreground: 210 40% 98%;
-
-    --border: 214 32% 91%;
+    --shadow-color: 225 30% 70%;
+    --card-shadow: 0 2px 8px -2px hsl(var(--shadow-color) / 0.15),
+                   0 6px 20px -4px hsl(var(--shadow-color) / 0.1);
+    --card-shadow-hover: 0 8px 30px -4px hsl(var(--primary) / 0.15),
+                         0 16px 50px -8px hsl(var(--primary) / 0.1);
   }
 
   .dark {
-    --background: 222 47% 4%;
-    --foreground: 213 31% 91%;
+    --background: 228 28% 7%;
+    --foreground: 216 20% 92%;
+    --card: 228 24% 11%;
+    --card-foreground: 216 20% 92%;
+    --primary: 252 80% 68%;
+    --primary-foreground: 0 0% 100%;
+    --accent: 252 80% 68%;
+    --accent2: 290 85% 65%;
+    --muted: 228 18% 16%;
+    --muted-foreground: 225 14% 52%;
+    --surface: 228 22% 13%;
+    --border: 228 16% 20%;
 
-    --card: 222 47% 8%;
-
-    --primary: 250 65% 65%;
-    --primary-foreground: 213 31% 91%;
-
-    --border: 217 33% 20%;
+    --shadow-color: 228 30% 4%;
+    --card-shadow: 0 2px 8px -2px hsl(var(--shadow-color) / 0.5),
+                   0 8px 24px -4px hsl(var(--shadow-color) / 0.4);
+    --card-shadow-hover: 0 8px 30px -4px hsl(var(--primary) / 0.2),
+                         0 20px 60px -8px hsl(var(--primary) / 0.15);
   }
 
   * {
@@ -96,110 +134,561 @@
   }
 
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
     font-feature-settings: "rlig" 1, "calt" 1;
-    background: #0a192f;
-    color: #f8fafc;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+    font-family: var(--font-sans);
+  }
+
+  h1 { @apply text-4xl md:text-5xl lg:text-6xl leading-tight; }
+  h2 { @apply text-3xl md:text-4xl leading-snug; }
+  h3 { @apply text-xl md:text-2xl; }
+  h4 { @apply text-lg md:text-xl; }
+
+  .font-display {
+    font-family: var(--font-display);
   }
 }
 
+/* ===================================================================
+   SCROLLBAR
+   =================================================================== */
+html, body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===================================================================
+   CONTAINER
+   =================================================================== */
 @utility container {
   margin-inline: auto;
-  padding-inline: 2rem;
-
-  @media (width >= 640px) {
-    max-width: 640px;
-  }
-  @media (width >= 768px) {
-    max-width: 768px;
-  }
-  @media (width >= 1024px) {
-    max-width: 1024px;
-  }
-  @media (width >= 1280px) {
-    max-width: 1280px;
-  }
-  @media (width >= 1400px) {
-    max-width: 1400px;
-  }
+  padding-inline: 1.5rem;
+  @media (width >= 640px) { max-width: 640px; }
+  @media (width >= 768px) { max-width: 768px; padding-inline: 2rem; }
+  @media (width >= 1024px) { max-width: 1024px; }
+  @media (width >= 1280px) { max-width: 1200px; }
 }
 
-@utility text-glow {
-  @apply relative;
-  text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
-}
-
+/* ===================================================================
+   TAILWIND UTILITIES
+   =================================================================== */
 @utility card-hover {
-  @apply transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg;
-}
-
-@utility gradient-border {
-  @apply relative rounded-md;
-  background: linear-gradient(to right, hsl(var(--card)), hsl(var(--card)));
-  background-clip: padding-box;
-  border: 1px solid transparent;
-}
-
-@utility cosmic-button {
-  @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium 
-         transition-all duration-300 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)]
-         hover:scale-105 active:scale-95;
+  @apply transition-all duration-300;
 }
 
 @utility star {
   @apply absolute rounded-full bg-white;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.3);
 }
 
 @utility meteor {
   @apply absolute bg-linear-to-r from-white via-white to-transparent rounded-full;
-  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 8px 3px rgba(255, 255, 255, 0.2);
 }
 
-.text-accent {
-  color: #00f0ff;
+/* ===================================================================
+   SECTION LAYOUT
+   =================================================================== */
+.section-padding {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
 }
 
-.bg-accent {
-  background-color: #00f0ff;
+/* Alternate section background for visual rhythm */
+.section-alt {
+  background: hsl(var(--surface));
 }
 
-.text-glow {
-  text-shadow: 0 0 10px #00f0ff, 0 0 20px #a259ff;
+.section-heading {
+  @apply text-center mb-4;
+  font-weight: 800;
+  letter-spacing: -0.025em;
 }
 
-.neon-glow {
-  box-shadow: 0 0 20px #00f0ff, 0 0 40px #a259ff;
+.section-subheading {
+  @apply text-center max-w-2xl mx-auto mb-14;
+  color: hsl(var(--muted-foreground));
+  font-size: 1.05rem;
+  line-height: 1.7;
 }
 
-.button-neon {
-  background: linear-gradient(90deg, #00f0ff 0%, #a259ff 100%);
+/* ===================================================================
+   GRADIENT TEXT
+   =================================================================== */
+.gradient-text {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent2)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===================================================================
+   BUTTONS — rich, tactile feel
+   =================================================================== */
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm;
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent2)));
   color: #fff;
-  border-radius: 9999px;
-  box-shadow: 0 0 20px #00f0ff, 0 0 40px #a259ff;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px hsl(var(--primary) / 0.3),
+              0 1px 3px hsl(var(--primary) / 0.2);
 }
-.button-neon:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px #00f0ff, 0 0 60px #a259ff;
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px hsl(var(--primary) / 0.4),
+              0 2px 6px hsl(var(--primary) / 0.25);
+}
+.btn-primary:active {
+  transform: translateY(-1px);
 }
 
-.input-dark {
-  background: #112240;
-  color: #f8fafc;
-  border: 1px solid #233554;
-  border-radius: 0.5rem;
-  padding: 0.75rem 1rem;
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm;
+  border: 2px solid hsl(var(--primary) / 0.5);
+  color: hsl(var(--primary));
+  background: hsl(var(--primary) / 0.04);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.input-dark:focus {
-  border-color: #00f0ff;
+.btn-secondary:hover {
+  background: hsl(var(--primary) / 0.1);
+  border-color: hsl(var(--primary));
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px hsl(var(--primary) / 0.12);
+}
+
+/* ===================================================================
+   CARDS — elevated, tactile
+   =================================================================== */
+.card {
+  @apply bg-card rounded-2xl;
+  border: 1px solid hsl(var(--border));
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card:hover {
+  border-color: hsl(var(--primary) / 0.25);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-4px);
+}
+
+/* ===================================================================
+   GLASS
+   =================================================================== */
+.glass {
+  background: hsl(var(--background) / 0.75);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+}
+
+/* ===================================================================
+   TAGS
+   =================================================================== */
+.tag {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold;
+  background: hsl(var(--primary) / 0.1);
+  color: hsl(var(--primary));
+  border: 1px solid hsl(var(--primary) / 0.12);
+}
+
+/* ===================================================================
+   SOCIAL ICONS
+   =================================================================== */
+.social-icon {
+  @apply w-11 h-11 rounded-xl inline-flex items-center justify-center;
+  border: 1.5px solid hsl(var(--border));
+  color: hsl(var(--muted-foreground));
+  background: hsl(var(--card));
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px hsl(var(--shadow-color) / 0.06);
+}
+.social-icon:hover {
+  color: #fff;
+  border-color: hsl(var(--primary));
+  background: hsl(var(--primary));
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px hsl(var(--primary) / 0.3);
+}
+
+/* ===================================================================
+   FORM INPUTS
+   =================================================================== */
+.form-input {
+  @apply w-full rounded-xl px-4 py-3.5 text-sm;
+  background: hsl(var(--surface));
+  border: 1.5px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+  transition: all 0.2s ease;
+}
+.form-input::placeholder {
+  color: hsl(var(--muted-foreground));
+}
+.form-input:focus {
   outline: none;
-  box-shadow: 0 0 0 2px #00f0ff44;
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.1);
+  background: hsl(var(--card));
+}
+
+/* ===================================================================
+   SCROLL REVEAL
+   =================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-stagger > .reveal:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger > .reveal:nth-child(2) { transition-delay: 100ms; }
+.reveal-stagger > .reveal:nth-child(3) { transition-delay: 200ms; }
+.reveal-stagger > .reveal:nth-child(4) { transition-delay: 300ms; }
+.reveal-stagger > .reveal:nth-child(5) { transition-delay: 400ms; }
+.reveal-stagger > .reveal:nth-child(6) { transition-delay: 500ms; }
+
+/* ===================================================================
+   TOOLTIPS
+   =================================================================== */
+.tooltip-wrapper {
+  @apply relative;
+}
+.tooltip-wrapper .tooltip-text {
+  @apply absolute -top-10 left-1/2 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap pointer-events-none;
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
+  opacity: 0;
+  transform: translateX(-50%) translateY(6px);
+  transition: opacity 0.2s, transform 0.2s;
+  box-shadow: 0 4px 12px hsl(var(--shadow-color) / 0.15);
+}
+.tooltip-wrapper .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: hsl(var(--foreground));
+}
+.tooltip-wrapper:hover .tooltip-text {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ===================================================================
+   TIMELINE
+   =================================================================== */
+.timeline-line {
+  @apply absolute left-6 md:left-1/2 top-0 bottom-0;
+  width: 3px;
+  background: linear-gradient(
+    to bottom,
+    hsl(var(--primary) / 0.05),
+    hsl(var(--primary) / 0.4),
+    hsl(var(--primary)),
+    hsl(var(--primary) / 0.4),
+    hsl(var(--primary) / 0.05)
+  );
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+/* ===================================================================
+   PROFILE IMAGE FALLBACK
+   =================================================================== */
+.profile-img-wrap {
+  @apply relative overflow-hidden;
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.15), hsl(var(--accent2) / 0.15));
+}
+.profile-img-wrap img {
+  @apply w-full h-full object-cover;
+}
+
+/* ===================================================================
+   SKILL BARS
+   =================================================================== */
+.skill-bar-track {
+  height: 10px;
+  border-radius: 5px;
+  background: hsl(var(--muted));
+  overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent2)));
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 8px hsl(var(--primary) / 0.3);
+}
+
+/* ===================================================================
+   UTILITIES
+   =================================================================== */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===================================================================
+   CV DOWNLOAD BUTTON — Advanced
+   =================================================================== */
+.cv-dl-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  overflow: hidden;
+  border: 2px solid hsl(var(--primary) / 0.5);
+  color: hsl(var(--primary));
+  background: hsl(var(--primary) / 0.04);
+  transition: border-color 0.3s, color 0.3s, background 0.3s,
+              transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Idle hover */
+.cv-dl-btn:hover:not(.cv-dl-active) {
+  background: hsl(var(--primary) / 0.1);
+  border-color: hsl(var(--primary));
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px hsl(var(--primary) / 0.15);
+}
+.cv-dl-btn:active:not(.cv-dl-active) {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* Downloading state — fill becomes visible */
+.cv-dl-active {
+  border-color: hsl(var(--primary) / 0.3);
+  color: hsl(var(--primary));
+  pointer-events: none;
+}
+
+/* Done state — morphs to success */
+.cv-dl-done {
+  border-color: #22c55e !important;
+  color: #22c55e !important;
+  background: rgba(34, 197, 94, 0.08) !important;
+  animation: cv-dl-pulse 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes cv-dl-pulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* ── Progress bar fill ── */
+.cv-dl-progress {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    hsl(var(--primary) / 0.12),
+    hsl(var(--primary) / 0.2)
+  );
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.15s linear;
+  pointer-events: none;
+  border-radius: inherit;
+}
+/* Shimmer on the progress fill */
+.cv-dl-active .cv-dl-progress::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(var(--primary) / 0.15),
+    transparent
+  );
+  animation: cv-dl-shimmer 1s ease infinite;
+}
+@keyframes cv-dl-shimmer {
+  from { left: -40%; }
+  to   { left: 100%; }
+}
+.cv-dl-done .cv-dl-progress {
+  background: rgba(34, 197, 94, 0.1);
+  transform: scaleX(1);
+}
+
+/* ── Particles ── */
+.cv-dl-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes cv-particle {
+  0% {
+    transform: translate(-50%, -50%) translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) translate(var(--cv-px), var(--cv-py)) scale(0);
+    opacity: 0;
+  }
+}
+
+/* ── Icon wrapper ── */
+.cv-dl-icon-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  z-index: 1;
+}
+.cv-dl-icon {
+  position: absolute;
+}
+
+/* Arrow idle — bouncy hover */
+.cv-dl-arrow {
+  animation: cv-dl-arrow-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.cv-dl-btn:hover:not(.cv-dl-active) .cv-dl-arrow {
+  animation: cv-dl-arrow-bounce 0.8s ease infinite;
+}
+@keyframes cv-dl-arrow-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes cv-dl-arrow-bounce {
+  0%, 100% { transform: translateY(0); }
+  25%      { transform: translateY(3px); }
+  50%      { transform: translateY(-1px); }
+  75%      { transform: translateY(2px); }
+}
+
+/* Loading spinner */
+.cv-dl-loading {
+  animation: cv-dl-spin 0.8s linear infinite;
+}
+@keyframes cv-dl-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Checkmark — draw in */
+.cv-dl-check {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  animation: cv-dl-draw-check 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+@keyframes cv-dl-draw-check {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ── Label ── */
+.cv-dl-label {
+  position: relative;
+  z-index: 1;
+  font-variant-numeric: tabular-nums;
+  min-width: 90px;
+  text-align: center;
+}
+
+/* ===================================================================
+   CHAT WIDGET ANIMATIONS
+   =================================================================== */
+
+/* Panel open */
+.chat-panel-enter {
+  animation: chatPanelIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: bottom right;
+}
+@keyframes chatPanelIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Panel close */
+.chat-panel-exit {
+  animation: chatPanelOut 0.25s cubic-bezier(0.4, 0, 1, 1) forwards;
+  transform-origin: bottom right;
+}
+@keyframes chatPanelOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+}
+
+/* Message bubble entry */
+.chat-msg-enter {
+  animation: chatMsgIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes chatMsgIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Typing dots — smoother than bounce */
+@keyframes typing-dot {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
 }
 
 #root {
   max-width: 100%;
   margin: 0 auto;
   padding: 0;
-  text-align: center;
 }

@@ -1,34 +1,63 @@
-import {
-  Instagram,
-  Linkedin,
-  Mail,
-  MapPin,
-  Phone,
-  Send,
-  Twitch,
-  Twitter,
-} from "lucide-react";
+import { Linkedin, Mail, MapPin, Phone, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
+const contactInfo = [
+  {
+    icon: Mail,
+    label: "Email",
+    value: "noorasghar2004@gmail.com",
+    href: "mailto:noorasghar2004@gmail.com",
+  },
+  {
+    icon: Phone,
+    label: "Phone",
+    value: "+92 304 4608290",
+    href: "tel:+923044608290",
+  },
+  {
+    icon: MapPin,
+    label: "Location",
+    value: "Lahore, Pakistan",
+    href: null,
+  },
+];
+
+const socials = [
+  {
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/noor-asghar",
+    label: "LinkedIn",
+  },
+  {
+    icon: Mail,
+    href: "mailto:noorasghar2004@gmail.com",
+    label: "Email",
+  },
+  {
+    icon: Phone,
+    href: "tel:+923044608290",
+    label: "Phone",
+  },
+];
 
 export const ContactSection = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const sectionRef = useScrollReveal();
 
-  // Formspree endpoint (provided)
   const formEndpoint = "https://formspree.io/f/xwpnynad";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const form = e.currentTarget;
-
     try {
       setIsSubmitting(true);
       const res = await fetch(formEndpoint, {
         method: "POST",
-        headers: { "Accept": "application/json" },
+        headers: { Accept: "application/json" },
         body: new FormData(form),
       });
       if (res.ok) {
@@ -44,7 +73,7 @@ export const ContactSection = () => {
           variant: "destructive",
         });
       }
-    } catch (err) {
+    } catch {
       toast({
         title: "Network error",
         description: "Check your connection and try again.",
@@ -54,125 +83,128 @@ export const ContactSection = () => {
       setIsSubmitting(false);
     }
   };
+
   return (
-    <section id="contact" className="py-24 px-4 relative bg-dark text-light">
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="section-padding px-4 relative"
+    >
       <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Contact <span className="text-accent">Me</span>
-        </h2>
+        <div className="reveal">
+          <h2 className="section-heading">
+            Get in <span className="gradient-text">Touch</span>
+          </h2>
+          <p className="section-subheading">
+            Have a project in mind or just want to chat? I'd love to hear from
+            you.
+          </p>
+        </div>
 
-        <p className="text-center text-grayText mb-12 max-w-2xl mx-auto">
-          Let's Work Together
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="space-y-8">
-            <h3 className="text-2xl font-semibold mb-6 text-accent text-center md:text-left">Contact Information</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          {/* Contact info */}
+          <div className="reveal space-y-8">
             <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-accent/10">
-                  <Mail className="h-6 w-6 text-accent" />
-                </div>
-                <div className="leading-tight">
-                  <h4 className="font-medium"> Email</h4>
-                  <a
-                    href="mailto:noorasghar2004@gmail.com"
-                    className="text-grayText hover:text-accent transition-colors block"
-                  >
-                    noorasghar2004@gmail.com
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-accent/10">
-                  <Phone className="h-6 w-6 text-accent" />
-                </div>
-                <div className="leading-tight">
-                  <h4 className="font-medium"> Phone</h4>
-                  <a
-                    href="tel:+923044608290"
-                    className="text-grayText hover:text-accent transition-colors block"
-                  >
-                    +92 3044608290
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-accent/10">
-                  <MapPin className="h-6 w-6 text-accent" />
-                </div>
-                <div className="leading-tight">
-                  <h4 className="font-medium"> Location</h4>
-                  <span className="text-grayText block">Lahore, Pakistan</span>
-                </div>
-              </div>
+              {contactInfo.map((item) => {
+                const Wrapper = item.href ? "a" : "div";
+                const wrapperProps = item.href
+                  ? { href: item.href, className: "group block" }
+                  : {};
+
+                return (
+                  <Wrapper key={item.label} {...wrapperProps}>
+                    <div className="flex items-center gap-4">
+                      <div
+                        className="w-13 h-13 rounded-xl flex items-center justify-center flex-shrink-0"
+                        style={{
+                          width: "52px",
+                          height: "52px",
+                          background: "hsl(var(--primary) / 0.1)",
+                        }}
+                      >
+                        <item.icon className="h-5 w-5" style={{ color: "hsl(var(--primary))" }} />
+                      </div>
+                      <div>
+                        <p className="text-xs uppercase tracking-wider mb-0.5 font-semibold" style={{ color: "hsl(var(--muted-foreground))" }}>
+                          {item.label}
+                        </p>
+                        <p className="text-sm font-semibold group-hover:text-primary transition-colors" style={{ color: "hsl(var(--foreground))" }}>
+                          {item.value}
+                        </p>
+                      </div>
+                    </div>
+                  </Wrapper>
+                );
+              })}
             </div>
-            <div className="pt-8">
-              <h4 className="font-medium mb-4 text-center md:text-left"> Connect With Me</h4>
-              <div className="flex space-x-4 justify-center md:justify-start">
-                <a href="https://www.linkedin.com/in/noor-asghar" target="_blank" className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-accent text-accent hover:bg-accent hover:text-dark neon-glow transition">
-                  <Linkedin />
-                </a>
-                <a href="mailto:noorasghar2004@gmail.com" target="_blank" className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-accent text-accent hover:bg-accent hover:text-dark neon-glow transition">
-                  <Mail />
-                </a>
-                <a href="tel:+923044608290" target="_blank" className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-accent text-accent hover:bg-accent hover:text-dark neon-glow transition">
-                  <Phone />
-                </a>
+
+            {/* Social links */}
+            <div>
+              <p className="text-sm font-bold mb-4" style={{ color: "hsl(var(--muted-foreground))" }}>
+                Connect with me
+              </p>
+              <div className="flex gap-3">
+                {socials.map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target={s.href.startsWith("http") ? "_blank" : undefined}
+                    rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="social-icon"
+                    aria-label={s.label}
+                  >
+                    <s.icon size={18} />
+                  </a>
+                ))}
               </div>
             </div>
           </div>
-          <div className="bg-[#112240] p-8 rounded-lg shadow-lg border border-accent neon-glow">
-            <h3 className="text-2xl font-semibold mb-6 text-accent">Send a Message</h3>
-            <form className="space-y-6" onSubmit={handleSubmit} action={formEndpoint} method="POST">
+
+          {/* Contact form */}
+          <div className="reveal card p-7 md:p-8">
+            <h4 className="font-bold mb-6">Send a Message</h4>
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  Your Name
-                </label>
+                <label htmlFor="name" className="sr-only">Your Name</label>
                 <input
                   type="text"
                   id="name"
                   name="name"
                   required
-                  className="input-dark w-full"
-                  placeholder="Your Name..."
+                  className="form-input"
+                  placeholder="Your Name"
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  Your Email
-                </label>
+                <label htmlFor="email" className="sr-only">Your Email</label>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   required
-                  className="input-dark w-full"
+                  className="form-input"
                   placeholder="your@email.com"
                 />
               </div>
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                  Your Subject
-                </label>
+                <label htmlFor="subject" className="sr-only">Subject</label>
                 <input
                   type="text"
                   id="subject"
                   name="subject"
                   required
-                  className="input-dark w-full"
-                  placeholder="Subject..."
+                  className="form-input"
+                  placeholder="Subject"
                 />
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Your Message
-                </label>
+                <label htmlFor="message" className="sr-only">Message</label>
                 <textarea
                   id="message"
                   name="message"
                   required
-                  className="input-dark w-full resize-none"
+                  rows={5}
+                  className="form-input resize-none"
                   placeholder="Hello, I'd like to talk about..."
                 />
               </div>
@@ -180,10 +212,11 @@ export const ContactSection = () => {
                 type="submit"
                 disabled={isSubmitting}
                 className={cn(
-                  "button-neon w-full flex items-center justify-center gap-2"
+                  "btn-primary w-full",
+                  isSubmitting && "opacity-70 pointer-events-none"
                 )}
               >
-                {isSubmitting ? "Sending..." : "Submit"}
+                {isSubmitting ? "Sending..." : "Send Message"}
                 <Send size={16} />
               </button>
             </form>
