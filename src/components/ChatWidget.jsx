@@ -435,17 +435,25 @@ export const ChatWidget = ({
                 e.currentTarget.style.boxShadow = "none";
               }}
             >
-              <input
-                ref={inputRef}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyDown={(e) =>
-                  e.key === "Enter" && canSend && sendMessage()
+            <textarea
+              ref={inputRef}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  if (e.shiftKey) {
+                    // Allow newline
+                    return;
+                  }
+                  e.preventDefault(); // prevent newline
+                  if (canSend) sendMessage();
                 }
-                placeholder="Type a message..."
-                className="flex-1 bg-transparent outline-none text-sm py-2.5"
-                style={{ color: "hsl(var(--foreground))" }}
-              />
+              }}
+              placeholder="Type a message..."
+              rows={1}
+              className="flex-1 bg-transparent outline-none text-sm py-2.5 resize-none"
+              style={{ color: "hsl(var(--foreground))" }}
+            />
               <button
                 onClick={() => sendMessage()}
                 disabled={!canSend}
