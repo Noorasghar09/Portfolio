@@ -23,7 +23,7 @@ function formatBotTextToSafeHtml(text) {
 }
 
 const DEFAULT_WEBHOOK_URL =
-  "https://automation.lucrative.ai/webhook/399b2f42-b34d-4fa8-9019-ee131aa8b7bf/chat";
+  "https://automation.lucrative.ai/webhook/8fe1b315-b676-4501-9259-45865c39e71e/chat";
 
 const suggestions = [
   "What are your skills?",
